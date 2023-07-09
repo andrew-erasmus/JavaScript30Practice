@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>JS Drum Kit</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
+
 <body>
 
 
@@ -58,28 +60,32 @@
   <audio data-key="KeyK" src="sounds/tom.wav"></audio>
   <audio data-key="KeyL" src="sounds/tink.wav"></audio>
 
-<script>
-  window.addEventListener("keydown", function(e){
-  const audio=document.querySelector(`audio[data-key="${e.code}"]`);
-  const key=document.querySelector(`.key[data-key="${e.code}"]`);
-  if(!audio)return;
-  audio.currentTime=0;
-  audio.play();
-  key.classList.toggle("playing");
-  
-  console.log(key);
-  });
+  <script>
+    
 
-  const keys=document.querySelectorAll(".key");
-  function removeTranistion(e){
-    if(e.propertyName !== 'transform') return;//skip if does not transform
-    this.classList.remove("playing") //this is equal to the key since is what the event lsitener got called against
-  }
-  keys.forEach(key => key.addEventListener("transitionend", removeTranistion));
+    const keys = document.querySelectorAll(".key");
+    function removeTranistion(e) {
+      if (e.propertyName !== 'transform') return;//skip if does not transform
+      this.classList.remove("playing") //this is equal to the key since is what the event lsitener got called against
+    }
+    function playSound(e) {
+      const audio = document.querySelector(`audio[data-key="${e.code}"]`);
+      const key = document.querySelector(`.key[data-key="${e.code}"]`);
+      if (!audio) return;
+      audio.currentTime = 0;
+      audio.play();
+      key.classList.toggle("playing");
 
-  
-</script>
+      console.log(key);
+    }
+    window.addEventListener("keydown", playSound);
+    keys.forEach(key => key.addEventListener("transitionend", removeTranistion));
+    
+
+
+  </script>
 
 
 </body>
+
 </html>
